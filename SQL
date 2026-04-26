@@ -1,0 +1,47 @@
+CREATE TABLE Tecnico (
+    id_tecnico INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100),
+    especialidade VARCHAR(100),
+    status VARCHAR(20)
+);
+
+CREATE TABLE Equipe (
+    id_equipe INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100)
+);
+
+CREATE TABLE Tecnico_Equipe (
+    id_tecnico INT,
+    id_equipe INT,
+    PRIMARY KEY (id_tecnico, id_equipe),
+    FOREIGN KEY (id_tecnico) REFERENCES Tecnico(id_tecnico),
+    FOREIGN KEY (id_equipe) REFERENCES Equipe(id_equipe)
+);
+
+CREATE TABLE Rota (
+    id_rota INT PRIMARY KEY AUTO_INCREMENT,
+    regiao VARCHAR(100),
+    risco_area VARCHAR(20)
+);
+
+CREATE TABLE Ocorrencia (
+    id_ocorrencia INT PRIMARY KEY AUTO_INCREMENT,
+    tipo VARCHAR(50),
+    descricao TEXT,
+    status VARCHAR(20),
+    data_abertura DATE
+);
+
+CREATE TABLE OrdemServico (
+    id_os INT PRIMARY KEY AUTO_INCREMENT,
+    data_inicio DATE,
+    data_fim DATE,
+    prioridade VARCHAR(20),
+    status VARCHAR(20),
+    id_ocorrencia INT,
+    id_rota INT,
+    id_equipe INT,
+    FOREIGN KEY (id_ocorrencia) REFERENCES Ocorrencia(id_ocorrencia),
+    FOREIGN KEY (id_rota) REFERENCES Rota(id_rota),
+    FOREIGN KEY (id_equipe) REFERENCES Equipe(id_equipe)
+);
